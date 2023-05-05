@@ -12,15 +12,14 @@ export const load = async ({ locals: { getSession } }) => {
 
 
 
-let tempEmail = ""
 
 export const actions = {
 	otp_init: async ({ request, locals }) => {
 		const body = Object.fromEntries(await request.formData())
-		tempEmail = body.email as string
-		
+		const email = body.email as string
+
 		try {			
-			signInSchema.safeParse(tempEmail)
+			signInSchema.safeParse(email)
 		} catch (error) {
 			return fail(400, {
 				error: "Invalid credentials",
@@ -29,7 +28,7 @@ export const actions = {
 
 
 		const { data, error: err } = await locals.supabase.auth.signInWithOtp({
-			email: tempEmail,
+			email: email,
 		})
 
 		if (err) {
@@ -44,41 +43,41 @@ export const actions = {
 		}
 
 		return {
-			sent: true
+			sent: true,
+			email: email,
 		}
 	},
 
 
 	otp_verif: async ({ request, locals }) => {
 		const body = Object.fromEntries(await request.formData())
-
+		const email = body.email as string
+		const token = body.token as string
 		
 		try {			
-			tokenSchema.safeParse(body.token)
+			signInSchema.safeParse(email)
+			tokenSchema.safeParse(token)
 		} catch (error) {
 			return fail(400, {
 				error: "Invalid credentials",
-				sent: true,
 			})
 		}
 
 
 		const { data, error: err } = await locals.supabase.auth.verifyOtp({
-            email: tempEmail,
-			token: body.token as string,
+            email: email,
+			token: token,
             type: 'email',
 		})
-	
+
 		if (err) {
 			if (err instanceof AuthApiError && err.status === 400) {
 				return fail(400, {
 					error: "Invalid credentials",
-					sent: true,
 				})
 			}
 			return fail(500, {
 				message: "Server error. Try again later.",
-				sent: true,
 			})
 		}
 
