@@ -9,6 +9,7 @@ import {PUBLIC_SUPABASE_URL, PUBLIC_SUPABASE_ANON_KEY} from '$env/static/public'
 // updateData DB
 
 
+
 export const load = async ({ fetch, data, depends }) => {
     depends('supabase:auth');
 
@@ -18,10 +19,12 @@ export const load = async ({ fetch, data, depends }) => {
         event: { fetch },
         serverSession: data.session
     });
+    // ===============================
 
     const {
         data: { session }
     } = await supabase.auth.getSession();
+    // ===============================
 
 
     return { supabase, session };

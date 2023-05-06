@@ -1,7 +1,6 @@
 <script lang="ts">
-	import { page } from '$app/stores'
-	let inbox = $page.data.inbox
-
+	
+    export let messages:any[];
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton'
 </script>
 
@@ -12,21 +11,24 @@
 
 <!-- Messages -->
 <Accordion>
-    {#each inbox.messages as message, i}
+    {#each messages as message, i}
 	<AccordionItem >
         <svelte:fragment slot="lead">
             (icon)
         </svelte:fragment>
         <svelte:fragment slot="summary">
-            <div >
+            <div class="{message.is_read? 'opacity-30 line-through' : ''}">
                 <span>
                     {message.sender}
+                </span>
+                <span>
+                    {message.currency}{message.price}
                 </span>
                 <span>
                     {message.subject}
                 </span>
                 <span>
-                    {message.date}
+                    {message.created_at}
                 </span>
             </div>
         </svelte:fragment>

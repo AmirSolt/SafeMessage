@@ -1,11 +1,9 @@
 
 
-import {publicPageConfig} from '$lib/data/server/PublicPage/PublicPageConfig'
-import {currencies} from '$lib/data/server/utils'
+import {currencies} from '$lib/server/data/schemas/utils'
 
 export const load = async () => {
     return{
-        publicPageConfig,
         currencies,
     }
 };

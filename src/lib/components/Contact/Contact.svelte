@@ -1,16 +1,12 @@
 <script lang="ts">
-    import { page } from '$app/stores'
-    let contact = $page.data.contact
-
-
-
+    export let contact:any;
 </script>
 
 
 
 <label class="label">
     <span>Preferred Contact Method</span>
-    <select class="select" bind:value={contact.primaryMethod}>
+    <select class="select" bind:value={contact.primary_method}>
         {#each Object.entries(contact.methods) as [method, value]}
             {#if method === contact.primaryMethod}
                 <option value="{method}" selected>{method}</option>
@@ -34,4 +30,8 @@
         <input class="input" type="tel" placeholder="Phone" bind:value={contact.phone}/>
     </label>
 {/if}
+
+
+
+
 

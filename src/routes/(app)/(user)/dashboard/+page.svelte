@@ -1,35 +1,24 @@
 <script lang="ts">
+
+
 	export let data;
-    $: user = data.session?.user
-
-	
-	// =============== Supabase ===============
-	import { invalidate } from '$app/navigation';
-	import { onMount } from 'svelte';
-	$: ({ supabase, session } = data);
-
-
-	async function loadBio(){
-		const { data, error } = await supabase
-			.from('bio')
-			.select()
-			.eq('id', user?.id)
-		
-		console.log("///////")
-		console.log(data, error)
-		if (error) throw error
-		return data[0]
-	} 
-
-
-
-	// =============== //////////// ===============
-
+	$: ({ supabase, session} = data);
+    $: user = session?.user
+    async function fetchUserFeature(tableName:string, user_id:string|undefined){
+        const { data, error } = await supabase
+            .from(tableName)
+            .select()
+            .eq('id', user_id)
+            .single()
+        if (error) throw error
+        return data
+    } 
+    
 
 </script>
 
 
-{#await loadBio()}
+{#await fetchUserFeature('bio', user?.id)}
 	<h2>...loading</h2>
 {:then bio}
 	<h1>Profile</h1>

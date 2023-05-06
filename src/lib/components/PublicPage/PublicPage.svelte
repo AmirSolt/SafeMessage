@@ -1,24 +1,25 @@
 <script lang="ts">
 
 
-
+  export let bio:any;
+  export let messageSettings:any;
 
   export let editorMode: boolean = false;
 
 
   import Bio from './Bio/Bio.svelte';
-  import Message from './Message/Message.svelte';
+  import MessageSettings from './MessageSettings/MessageSettings.svelte';
 </script>
 
 
 
-<Bio  editorMode={editorMode} />
+
+<Bio bio={bio} editorMode={editorMode} />
 
 <br>
 <br>
 
-<Message  editorMode={editorMode}  />
-
+<MessageSettings messageSettings={messageSettings}  editorMode={editorMode}  />
 
 
 

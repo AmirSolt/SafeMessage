@@ -2,11 +2,10 @@
 
 	import {page} from '$app/stores'
     const currencies = $page.data.currencies
-	let config = $page.data.publicPageConfig
 
+	import ContactPrice from './MessageSettingsPrice.svelte'
 
-	import ContactPrice from './MessagePrice.svelte'
-
+	export let messageSettings:any ;
     export let editorMode = false;
 
 </script>
@@ -18,14 +17,14 @@
 
 	<!-- Message body and sender -->
 	{#if editorMode}
-		<input class="input" type="text" placeholder="Title" bind:value={config.message.title} />
+		<input class="input" type="text" placeholder="Title" bind:value={messageSettings.title} />
     {:else}
-		<h2>{config.message.title}</h2>
+		<h2>{messageSettings.title}</h2>
 		<label class="label">
 			<!-- <span>Sender:</span> -->
 			<input class="input" type="text" placeholder="Email" />
 			
-			<input class="input" type="text" placeholder="Subject" bind:value={config.message.subject} />
+			<input class="input" type="text" placeholder="Subject" bind:value={messageSettings.subject} />
 			<!-- <span>Body:</span> -->
 			<textarea class="textarea " rows="4" placeholder="Lorem ipsum dolor sit amet consectetur adipisicing elit." />
 		</label>
@@ -33,16 +32,14 @@
 
 
 
-
-
 	<!-- Message Submit -->
 	{#if editorMode}
 
-		<ContactPrice  />
+		<ContactPrice messageSettings={messageSettings} />
 		
     {:else}
 		<button type="button" class="btn variant-filled">
-			<span>Submit {config.message.currencySymbol}{config.message.price} ({config.message.currency}) </span>
+			<span>Submit {currencies[messageSettings.currency]}{messageSettings.price} ({messageSettings.currency}) </span>
 		</button>
     {/if}
 

@@ -3,13 +3,10 @@
     import { Avatar, FileButton } from '@skeletonlabs/skeleton';
 
 
-    import {page} from '$app/stores'
-	let config = $page.data.publicPageConfig
-
-
+    export let bio:any;
     export let editorMode = false;
 
-    let initials = config.bio.username[0] + config.bio.username[1];
+    let initials:string = bio.username[0] + bio.username[1];
 
     let files: FileList;
     function onUploadHandler(e: Event): void {
@@ -25,7 +22,7 @@
 <section>
 
     <!-- Bio pfp -->
-    <Avatar src='{config.bio.pfp}' initials='{initials}' width="w-32" rounded="rounded-full" />
+    <Avatar src='{bio.pfp}' initials='{initials}' width="w-32" rounded="rounded-full" />
     {#if editorMode}
         <FileButton name="files" bind:files on:change={onUploadHandler}>
         +
@@ -35,7 +32,7 @@
     
     <!-- Bio username -->
     <h1>
-        @{config.bio.username}
+        @{bio.username}
     </h1>
     
     
@@ -43,11 +40,11 @@
     {#if editorMode}
         <label class="label">
             <span>Bio:</span>
-            <textarea bind:value={config.bio.body} class="textarea " rows="4" placeholder="Tell us about yourself."  />
+            <textarea bind:value={bio.desc} class="textarea " rows="4" placeholder="Tell us about yourself."  />
         </label>
     {:else}
         <p>
-            {config.bio.body}
+            {bio.desc}
         </p>
     {/if}
 
