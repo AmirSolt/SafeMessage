@@ -13,20 +13,20 @@ const messageBodyMax = 100;
 
 
 
-const Bio = z.object({
+export const Bio = z.object({
     pfp: z.string().url(),
     handleName: z.string().max(handleNameMax),
     displayName: z.string().max(displayNameMax),
     desc: z.string().max(bioDescMax),
 });
 
-const Contact = z.object({
+export const Contact = z.object({
     email: z.string().email(),
     phone: z.string().regex(/^[0-9]*$/, {message: "Phone number must only contain numbers"}),
     primaryMethod: z.string().refine( (val) => val in contactMethods, {message: "Invalid contact method"}),
 });
 
-const MessageSettings = z.object({
+export const MessageSettings = z.object({
     title: z.string().max(messageTitleMax),
     price: z.number().min(0, {message: "Price must be greater than 0"}),
     currency: z.string().refine( (val) => val in Object.keys(currencies), {message: "Invalid currency"})
@@ -35,7 +35,7 @@ const MessageSettings = z.object({
 
 
 
-const Message = z.object({
+export const Message = z.object({
     sender: z.string().email(),
     subject: z.string().max(messageSubjectMax),
     body: z.string().max(messageBodyMax),
@@ -46,7 +46,7 @@ const Message = z.object({
     isPaid: z.boolean(),
 });
 
-const PublicPageStats = z.object({
+export const PublicPageStats = z.object({
     views: z.number(),
     numberOfMessageAttempts: z.number(),
     numberOfFreeMessages: z.number(),
@@ -56,7 +56,7 @@ const PublicPageStats = z.object({
     locations: z.array(z.string()),
 });
 
-const Theme = z.object({
+export const Theme = z.object({
     isCustom: z.boolean(),
     template: z.string().refine( (val) => val in themeTemplates, {message: "Invalid template"}),
 });

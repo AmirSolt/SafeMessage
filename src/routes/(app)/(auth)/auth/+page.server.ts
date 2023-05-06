@@ -1,6 +1,6 @@
 import { AuthApiError } from "@supabase/supabase-js"
 import { fail, redirect } from "@sveltejs/kit"
-import {signInSchema, tokenSchema} from "$lib/zod/schemas" 
+import {emailSignInSchema, emailOTPSchema} from "$lib/server/data/schemas/authForms" 
 
 
 
@@ -18,14 +18,11 @@ export const actions = {
 		const body = Object.fromEntries(await request.formData())
 		const email = body.email as string
 
-		try {			
-			signInSchema.safeParse(email)
-		} catch (error) {
+		if(!emailSignInSchema.safeParse({email}).success){
 			return fail(400, {
 				error: "Invalid credentials",
 			})
 		}
-
 
 		const { data, error: err } = await locals.supabase.auth.signInWithOtp({
 			email: email,
@@ -54,10 +51,7 @@ export const actions = {
 		const email = body.email as string
 		const token = body.token as string
 		
-		try {			
-			signInSchema.safeParse(email)
-			tokenSchema.safeParse(token)
-		} catch (error) {
+		if(!emailOTPSchema.safeParse({email, token}).success){
 			return fail(400, {
 				error: "Invalid credentials",
 			})
