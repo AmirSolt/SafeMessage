@@ -13,29 +13,32 @@ const messageBodyMax = 100;
 
 
 
-export const Bio = z.object({
+const Bio = z.object({
     pfp: z.string().url(),
     handleName: z.string().max(handleNameMax),
     displayName: z.string().max(displayNameMax),
     desc: z.string().max(bioDescMax),
 });
+export type Bio = z.infer<typeof Bio>
 
-export const Contact = z.object({
+const Contact = z.object({
     email: z.string().email(),
     phone: z.string().regex(/^[0-9]*$/, {message: "Phone number must only contain numbers"}),
     primaryMethod: z.string().refine( (val) => val in contactMethods, {message: "Invalid contact method"}),
 });
+export type Contact = z.infer<typeof Contact>
 
-export const MessageSettings = z.object({
+const MessageSettings = z.object({
     title: z.string().max(messageTitleMax),
     price: z.number().min(0, {message: "Price must be greater than 0"}),
     currency: z.string().refine( (val) => val in Object.keys(currencies), {message: "Invalid currency"})
 });
+export type MessageSettings = z.infer<typeof MessageSettings>
 
 
 
 
-export const Message = z.object({
+const Message = z.object({
     sender: z.string().email(),
     subject: z.string().max(messageSubjectMax),
     body: z.string().max(messageBodyMax),
@@ -45,8 +48,9 @@ export const Message = z.object({
     isRead: z.boolean(),
     isPaid: z.boolean(),
 });
+export type Message = z.infer<typeof Message>
 
-export const PublicPageStats = z.object({
+const PublicPageStats = z.object({
     views: z.number(),
     numberOfMessageAttempts: z.number(),
     numberOfFreeMessages: z.number(),
@@ -55,8 +59,16 @@ export const PublicPageStats = z.object({
     OSPlatforms: z.array(z.string().refine( (val) => val in platforms, {message: "Invalid platform"})),
     locations: z.array(z.string()),
 });
+export type PublicPageStats = z.infer<typeof PublicPageStats>
 
-export const Theme = z.object({
+
+
+
+
+const Theme = z.object({
     isCustom: z.boolean(),
     template: z.string().refine( (val) => val in themeTemplates, {message: "Invalid template"}),
 });
+
+export type Theme = z.infer<typeof Theme>;
+
