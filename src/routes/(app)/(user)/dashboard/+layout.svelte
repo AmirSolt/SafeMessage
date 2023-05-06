@@ -62,8 +62,8 @@
 			<svelte:fragment slot="trail">
 				<AppRailTile
 					tag="a"
-					href='/dashboard/profile'
-					label="Profile"
+					href='/dashboard/account'
+					label="Account"
 					value={5}
 				>
 					(icon)

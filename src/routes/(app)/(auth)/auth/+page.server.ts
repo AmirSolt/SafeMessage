@@ -51,7 +51,7 @@ export const actions = {
 		const email = body.email as string
 		const token = body.token as string
 		
-		if(!emailOTPSchema.safeParse({email}).success){
+		if(!emailOTPSchema.safeParse({email, token}).success){
 			return fail(400, {
 				error: "Invalid credentials",
 			})

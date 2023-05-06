@@ -4,8 +4,7 @@ import {contactMethods, currencies, platforms, themeTemplates} from "./utils";
 
 
 
-const handleNameMax = 20;
-const displayNameMax = 20;
+const userNameMax = 20;
 const bioDescMax = 100;
 const messageTitleMax = 20;
 const messageSubjectMax = 50;
@@ -15,8 +14,7 @@ const messageBodyMax = 100;
 
 const Bio = z.object({
     pfp: z.string().url(),
-    handleName: z.string().max(handleNameMax),
-    displayName: z.string().max(displayNameMax),
+    userName: z.string().max(userNameMax),
     desc: z.string().max(bioDescMax),
 });
 export type Bio = z.infer<typeof Bio>
@@ -42,7 +40,7 @@ const Message = z.object({
     sender: z.string().email(),
     subject: z.string().max(messageSubjectMax),
     body: z.string().max(messageBodyMax),
-    date: z.date(),
+    sentDate: z.date(),
     price: z.number().min(0, {message: "Price must be greater than 0"}),
     currency: z.string().refine( (val) => val in Object.keys(currencies), {message: "Invalid currency"}),
     isRead: z.boolean(),
@@ -55,9 +53,9 @@ const PublicPageStats = z.object({
     numberOfMessageAttempts: z.number(),
     numberOfFreeMessages: z.number(),
     numberOfPaidMessages: z.number(),
-    referrers: z.array(z.string().url()),
-    OSPlatforms: z.array(z.string().refine( (val) => val in platforms, {message: "Invalid platform"})),
-    locations: z.array(z.string()),
+    referrers: z.array(z.string().url().array()),
+    OSPlatforms: z.array(z.string().refine( (val) => val in platforms, {message: "Invalid platform"}).array()),
+    countries: z.array(z.string().refine( (val) => val.length === 2, {message: "Invalid country"}).array()),
 });
 export type PublicPageStats = z.infer<typeof PublicPageStats>
 
@@ -71,4 +69,6 @@ const Theme = z.object({
 });
 
 export type Theme = z.infer<typeof Theme>;
+
+
 
