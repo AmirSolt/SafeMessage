@@ -18,7 +18,7 @@
 		console.log("///////")
 		console.log(data, error)
 		if (error) throw error
-		return data[0].bio
+		return data[0]
 	} 
 
 
@@ -29,11 +29,11 @@
 </script>
 
 
-{#await loadBio() then bio}
-
-<div class="p-4">
+{#await loadBio()}
+	<h2>...loading</h2>
+{:then bio}
 	<h1>Profile</h1>
-	<p class="mt-4 capitalize">Welcome, {bio?.username}!</p>
-</div>
-
+	<p class="mt-4 capitalize">Welcome, {bio.username}!</p>
+{:catch error}
+	<p style="color: red">{error.message}</p>
 {/await}
