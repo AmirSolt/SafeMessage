@@ -1,7 +1,15 @@
 <script lang="ts">
 	
     export let messages:any[];
+    export let updateMessage:any;
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton'
+
+    function toggleMessageIsRead(message:any){
+        message.is_read = true;
+        updateMessage(message.id, {is_read:message.is_read});
+        messages=messages;
+    }
+
 </script>
 
 
@@ -14,12 +22,16 @@
 {:else}
 <Accordion>
     {#each messages as message, i}
-	<AccordionItem >
+	<AccordionItem on:toggle={(e)=>toggleMessageIsRead(message)} >
         <svelte:fragment slot="lead">
-            (icon)
+            
         </svelte:fragment>
         <svelte:fragment slot="summary">
-            <div class="{message.is_read? 'opacity-30 line-through' : ''}">
+            <div class="{message.is_read? 'alert variant-ringed' : 'alert variant-filled'}">
+                <span class="{message.is_read? 'badge bg-initial' : 'badge variant-filled-primary'}">
+                    {message.is_read? 'Read' : 'New'}
+                </span>
+
                 <span>
                     {message.sender}
                 </span>
@@ -35,7 +47,11 @@
             </div>
         </svelte:fragment>
         <svelte:fragment slot="content">
-            <p>{message.body}</p>
+            <hr>
+            <div class="p-4">
+                <p>{message.body}</p>
+            </div>
+            <hr>
         </svelte:fragment>
 	</AccordionItem>
     {/each}

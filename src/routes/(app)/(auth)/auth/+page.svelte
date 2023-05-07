@@ -6,7 +6,16 @@
 </script>
 
 
-
+{#if form?.error}
+	<div class="alert variant-filled-error">
+		<h3>
+			Warning
+		</h3>
+		<p>
+			{form?.error}
+		</p>
+	</div>
+{/if}
 
 
 <button type="button" class="btn variant-filled">

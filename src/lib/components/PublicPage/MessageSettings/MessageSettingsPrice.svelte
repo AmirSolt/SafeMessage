@@ -5,9 +5,10 @@
     const currencies = $page.data.currencies
 	import {Wallet} from 'lucide-svelte';
     export let messageSettings:any;
+    export let updateMessageSettings:any;
 
     function handleCurrencyChange(){
-        messageSettings.currencySymbol = currencies[messageSettings.currency]
+        updateMessageSettings({currency: messageSettings.currency});
     }
 
 </script>
@@ -18,7 +19,7 @@
 
 <div class="input-group input-group-divider grid-cols-[auto_1fr_auto]">
     <div class="input-group-shim"><Wallet /></div>
-    <input type="text" placeholder="Amount" bind:value={messageSettings.price} />
+    <input type="text" placeholder="Amount" bind:value={messageSettings.price} on:blur={()=>{updateMessageSettings({price: messageSettings.price})}}/>
     <select bind:value={messageSettings.currency} on:change={handleCurrencyChange}>
         {#each Object.entries(currencies) as [code, currency]}
             {#if code === messageSettings.currency}

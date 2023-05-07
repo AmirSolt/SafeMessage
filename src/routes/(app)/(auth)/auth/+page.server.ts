@@ -35,7 +35,7 @@ export const actions = {
 				})
 			}
 			return fail(500, {
-				message: "Server error. Try again later.",
+				error: "Wait a few minutes before trying again.",
 			})
 		}
 
@@ -54,6 +54,7 @@ export const actions = {
 		if(!emailOTPSchema.safeParse({email, token}).success){
 			return fail(400, {
 				error: "Invalid credentials",
+				sent: true
 			})
 		}
 
@@ -68,10 +69,12 @@ export const actions = {
 			if (err instanceof AuthApiError && err.status === 400) {
 				return fail(400, {
 					error: "Invalid credentials",
+					sent: true
 				})
 			}
 			return fail(500, {
-				message: "Server error. Try again later.",
+				error: "Wait a few minutes before trying again.",
+				sent: true
 			})
 		}
 

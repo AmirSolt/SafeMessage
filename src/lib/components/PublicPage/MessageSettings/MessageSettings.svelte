@@ -7,6 +7,8 @@
 
 	export let messageSettings:any ;
     export let editorMode = false;
+	export let updateMessageSettings:any;
+
 
 </script>
 
@@ -17,7 +19,7 @@
 
 	<!-- Message body and sender -->
 	{#if editorMode}
-		<input class="input" type="text" placeholder="Title" bind:value={messageSettings.title} />
+		<input class="input" type="text" placeholder="Title" bind:value={messageSettings.title} on:blur={()=>updateMessageSettings({title: messageSettings.title})} />
     {:else}
 		<h2>{messageSettings.title}</h2>
 		<label class="label">
@@ -35,7 +37,7 @@
 	<!-- Message Submit -->
 	{#if editorMode}
 
-		<ContactPrice messageSettings={messageSettings} />
+		<ContactPrice messageSettings={messageSettings} bind:updateMessageSettings />
 		
     {:else}
 		<button type="button" class="btn variant-filled">

@@ -23,7 +23,7 @@ export const load = async ({ locals: { getSession, supabase } }) => {
 	}
 
 	async function fetchUserMessages() {
-		const { data, error } = await supabase.from('message').select().eq('recipient_id', session.user.id);
+		const { data, error } = await supabase.from('message').select().eq('recipient_id', session.user.id).eq('is_paid', true);
 		if (error) throw error;
 		return data;
 	}
