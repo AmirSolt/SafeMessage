@@ -1,13 +1,19 @@
 <script lang="ts">
     
+    import {updateUserFeature} from '$lib/data/helper';
     import {page} from '$app/stores';
-    const {contactMethods} = $page.data;
+    $: ({user, supabase, contactMethods, contact} = $page.data)
 
-    export let contact:any;
-    export let updateContact:any;
+
+    async function updateContact(toUpdate){
+        updateUserFeature(supabase, user, 'contact', toUpdate)
+    }
+
 </script>
 
-
+<p>
+    Please make sure you input the correct information.
+</p>
 
 <label class="label">
     <span>Preferred Contact Method</span>
@@ -22,6 +28,7 @@
 
     </select>
 </label>
+
 
 
 {#if contact.primary_method === contactMethods.email}
@@ -39,9 +46,7 @@
 <p>
     This does not affect your login email or phone number.    
 </p>
-<p>
-    Please make sure you input the correct information.
-</p>
+
 
 
 

@@ -23,9 +23,9 @@ export const load = async ({ locals: { getSession, supabase } }) => {
 	}
 
 	async function fetchUserMessages() {
-		const { data, error } = await supabase.from('message').select().eq('recipient_id', session.user.id).eq('is_paid', true);
+		const { data, error } = await supabase.from('messages').select().eq('recipient_id', session.user.id).eq('is_paid', true);
 		if (error) throw error;
-		return data;
+		return data;		
 	}
 
 	return {
@@ -34,5 +34,7 @@ export const load = async ({ locals: { getSession, supabase } }) => {
 		messageSettings: await fetchUserFeature('message_settings'),
 		messages: await fetchUserMessages(),
 		contact: await fetchUserFeature('contact'),
+		styling: await fetchUserFeature('styling'),
+		publicPageStats: await fetchUserFeature('public_page_stats'),
 	}
 }

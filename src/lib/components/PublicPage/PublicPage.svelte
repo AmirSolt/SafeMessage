@@ -1,26 +1,26 @@
 <script lang="ts">
 
 
-  export let bio:any;
-  export let messageSettings:any;
+  import {page} from '$app/stores';
+	$: ({styling} = $page.data)
 
   export let editorMode: boolean = false;
-  export let updateBio:any;
-  export let updateMessageSettings:any;
 
   import Bio from './Bio/Bio.svelte';
   import MessageSettings from './MessageSettings/MessageSettings.svelte';
 </script>
 
 
+<h1>
+  styling: {styling.template}
+</h1>
 
-
-<Bio bind:bio={bio} editorMode={editorMode} {updateBio} />
+<Bio editorMode={editorMode} />
 
 <br>
 <br>
 
-<MessageSettings bind:messageSettings={messageSettings}  editorMode={editorMode} {updateMessageSettings}  />
+<MessageSettings  editorMode={editorMode}  />
 
 
 
@@ -28,9 +28,9 @@
 
 <style>
 
-  .beach{
+  /* .beach{
 
-  }
+  } */
 
   
 

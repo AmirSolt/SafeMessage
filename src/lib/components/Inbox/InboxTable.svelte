@@ -1,14 +1,24 @@
 <script lang="ts">
 	
-    export let messages:any[];
-    export let updateMessage:any;
 	import { Accordion, AccordionItem } from '@skeletonlabs/skeleton'
+
+
+    import {updateMessageDB} from '$lib/data/helper';
+    import {page} from '$app/stores';
+    $: ({supabase, messages} = $page.data)
+
+
+    async function updateMessage(message_id, toUpdate){
+        updateMessageDB(supabase, message_id, toUpdate)
+    }
 
     function toggleMessageIsRead(message:any){
         message.is_read = true;
         updateMessage(message.id, {is_read:message.is_read});
         messages=messages;
     }
+
+
 
 </script>
 

@@ -1,24 +1,33 @@
 <script lang="ts">
 
     import { Avatar, FileButton } from '@skeletonlabs/skeleton';
+    import {updateUserFeature} from '$lib/data/helper';
 
+    import {page} from '$app/stores';
+	$: ({user, supabase, bio} = $page.data)
 
-    export let bio:any;
     export let editorMode = false;
-    export let updateBio:any;
+    let initials:string="AZ";
 
-    // let initials:string = bio.username[0] + bio.username[1];
-    let initials:string = "as";
+    
 
+    async function updateBio(toUpdate){
+        updateUserFeature(supabase, user, 'bio', toUpdate)
+    }
+
+    
+    // ==============================
     let files: FileList;
     function onUploadHandler(e: Event): void {
         console.log('file data:', e);
         console.log('file data:', files);
         updateBio({pfp: bio.pfp})
     }
-
-
-
+    // ==============================
+    import {onMount} from 'svelte';
+    onMount(() => {
+        initials = bio.username[0] + bio.username[1];
+    })
 
 </script>
 

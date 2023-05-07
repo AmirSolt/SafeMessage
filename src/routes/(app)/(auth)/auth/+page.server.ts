@@ -1,6 +1,6 @@
 import { AuthApiError } from "@supabase/supabase-js"
 import { fail, redirect } from "@sveltejs/kit"
-import {emailSignInSchema, emailOTPSchema} from "$lib/server/data/schemas/authForms" 
+import {emailSignInSchema, emailOTPSchema} from "$lib/data/schemas/authForms" 
 
 
 

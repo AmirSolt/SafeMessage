@@ -1,6 +1,6 @@
 
 
-import {currencies} from '$lib/server/data/schemas/utils'
+import {currencies} from '$lib/data/schemas/utils'
 
 export const load = async () => {
     return{

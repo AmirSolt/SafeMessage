@@ -44,8 +44,8 @@
 				>
 				<AppRailTile
 					tag="a"
-					href='/dashboard/theme'
-					label="Theme"
+					href='/dashboard/styling'
+					label="Styling"
 					value={3}>
 					(icon)
 					</AppRailTile

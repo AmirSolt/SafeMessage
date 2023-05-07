@@ -1,14 +1,17 @@
 <script lang="ts">
 
-	import {page} from '$app/stores'
-    const currencies = $page.data.currencies
-
 	import ContactPrice from './MessageSettingsPrice.svelte'
+    import {updateUserFeature} from '$lib/data/helper';
+	import {page} from '$app/stores'
+	$: ({user, supabase, messageSettings, currencies} = $page.data)
 
-	export let messageSettings:any ;
+
     export let editorMode = false;
-	export let updateMessageSettings:any;
 
+
+	async function updateMessageSettings(toUpdate){
+		updateUserFeature(supabase, user, 'message_settings', toUpdate)
+	}
 
 </script>
 
@@ -37,7 +40,7 @@
 	<!-- Message Submit -->
 	{#if editorMode}
 
-		<ContactPrice messageSettings={messageSettings} bind:updateMessageSettings />
+		<ContactPrice messageSettings={messageSettings} {updateMessageSettings} />
 		
     {:else}
 		<button type="button" class="btn variant-filled">
