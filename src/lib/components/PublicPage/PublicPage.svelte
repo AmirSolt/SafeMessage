@@ -14,12 +14,12 @@
 
 
 
-<Bio bio={bio} editorMode={editorMode} />
+<Bio bind:bio={bio} editorMode={editorMode} />
 
 <br>
 <br>
 
-<MessageSettings messageSettings={messageSettings}  editorMode={editorMode}  />
+<MessageSettings bind:messageSettings={messageSettings}  editorMode={editorMode}  />
 
 
 

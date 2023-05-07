@@ -1,8 +1,8 @@
 
-export const contactMethods = [
-    "Email",
-    "Phone",
-]
+export const contactMethods = {
+    email:"Email",
+    phone:"Phone",
+}
 
 export const platforms = [
     "Windows",

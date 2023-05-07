@@ -6,7 +6,8 @@
     export let bio:any;
     export let editorMode = false;
 
-    let initials:string = bio.username[0] + bio.username[1];
+    // let initials:string = bio.username[0] + bio.username[1];
+    let initials:string = "as";
 
     let files: FileList;
     function onUploadHandler(e: Event): void {

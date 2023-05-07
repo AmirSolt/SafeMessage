@@ -5,27 +5,19 @@
 	let editorMode: boolean = false;
 
 	export let data;
-	$:(
-        {
-            user,
-            bio,
-            messageSettings
-        } = data
-    )
+	$: ({user, bio, messageSettings} = data)
 
-    import { onMount } from 'svelte';
-    onMount(() => {
-        console.log('user:', user);
-        console.log('bio:', bio);
-        console.log('messageSettings:', messageSettings);
-    })
-	
+
+  
 </script>
 
 
-<SlideToggle name="slide" bind:checked={editorMode} />
-<h2>Editor</h2>
 
-<br />
-
-<PublicPage bio={bio} messageSettings={messageSettings} {editorMode} />
+{#if bio && messageSettings}
+    <SlideToggle name="slide" bind:checked={editorMode} />
+    <h2>Editor</h2>
+    <br />
+    <PublicPage bind:bio bind:messageSettings {editorMode} />
+{:else}
+    <h1>loading...</h1>
+{/if}

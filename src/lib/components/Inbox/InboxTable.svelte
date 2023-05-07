@@ -9,7 +9,9 @@
 
 
 
-<!-- Messages -->
+{#if messages.length === 0}
+    <h1>No messages</h1>
+{:else}
 <Accordion>
     {#each messages as message, i}
 	<AccordionItem >
@@ -39,3 +41,5 @@
     {/each}
 
 </Accordion>
+
+{/if}

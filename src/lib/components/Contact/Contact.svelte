@@ -1,5 +1,10 @@
 <script lang="ts">
+    
+    import {page} from '$app/stores';
+    const {contactMethods} = $page.data;
+
     export let contact:any;
+
 </script>
 
 
@@ -7,11 +12,11 @@
 <label class="label">
     <span>Preferred Contact Method</span>
     <select class="select" bind:value={contact.primary_method}>
-        {#each Object.entries(contact.methods) as [method, value]}
-            {#if method === contact.primaryMethod}
-                <option value="{method}" selected>{method}</option>
+        {#each Object.entries(contactMethods) as [method, value]}
+            {#if method === contact.primary_method}
+                <option value="{value}" selected>{value}</option>
             {:else}
-                <option value="{method}">{method}</option>
+                <option value="{value}">{value}</option>
             {/if}
         {/each}
 
@@ -19,12 +24,12 @@
 </label>
 
 
-{#if contact.primaryMethod === contact.methods.email}
+{#if contact.primary_method === contactMethods.email}
     <label class="label">
         <span>Email</span>
         <input class="input" type="email" placeholder="Email" bind:value={contact.email}/>
     </label>
-{:else if contact.primaryMethod === contact.methods.phone}
+{:else if contact.primary_method === contactMethods.phone}
     <label class="label">
         <span>Phone</span>
         <input class="input" type="tel" placeholder="Phone" bind:value={contact.phone}/>
