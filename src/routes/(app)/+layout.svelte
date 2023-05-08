@@ -1,6 +1,6 @@
 <script lang='ts'>
-	import Header from '$lib/components/basic/Header.svelte'
-	import Footer from '$lib/components/basic/Footer.svelte';
+	import Header from '$lib/components/Basic/Header.svelte'
+	import Footer from '$lib/components/Basic/Footer.svelte';
 	import { AppShell } from '@skeletonlabs/skeleton';
 
 	import '@skeletonlabs/skeleton/themes/theme-crimson.css'

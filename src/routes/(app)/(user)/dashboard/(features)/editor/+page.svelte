@@ -19,6 +19,14 @@
     <SlideToggle name="slide" bind:checked={editorMode} />
     <h2>Editor</h2>
     <br />
+
+    <!-- preview -->
+    <a href="/{bio.username}" type="button" class="btn variant-filled" target="_blank" rel="noopener">
+        <span>(icon)</span>
+        <span>Preview</span>
+    </a>
+
+    <br />
     <PublicPage {editorMode} />
     
 {:else}

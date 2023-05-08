@@ -1,21 +1,17 @@
 <script lang="ts">
 
     import { Avatar, FileButton } from '@skeletonlabs/skeleton';
-    import {updateUserFeature} from '$lib/data/helper';
-
-    import {page} from '$app/stores';
-	$: ({user, supabase, bio} = $page.data)
-
     export let editorMode = false;
     let initials:string="AZ";
-
     
+    
+    import {updateUserFeature} from '$lib/data/helper';
+    import {page} from '$app/stores';
+	$: ({user, supabase, bio} = $page.data)
 
     async function updateBio(toUpdate){
         updateUserFeature(supabase, user, 'bio', toUpdate)
     }
-
-    
     // ==============================
     let files: FileList;
     function onUploadHandler(e: Event): void {

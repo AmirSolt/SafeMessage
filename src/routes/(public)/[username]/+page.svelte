@@ -1,15 +1,20 @@
-<!-- <script lang="ts">
+<script lang="ts">
+    import PublicPage from '$lib/components/PublicPage/PublicPage.svelte';
+    import Loading from '$lib/components/Basic/Loading.svelte';
+
     export let data;
-    const {publicProfile} = data;
+    $: ({bio, messageSettings} = data)
+
 </script>
 
 
-<h1>
-    {publicProfile?.username}
-</h1> -->
 
+{#if bio && messageSettings}
 
+    <PublicPage editorMode={false} />
+    
+{:else}
 
+<Loading />
 
-
-
+{/if}
